@@ -1,0 +1,1 @@
+web: BASE_URL=mongodb://kostasFQ:1758236z@ds029655.mlab.com:29655/game node index.js

@@ -1,0 +1,26 @@
+{
+  "name": "game_be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "BASE_URL=mongodb://kostasFQ:1758236z@ds029655.mlab.com:29655/game node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kostasFQ/game_BE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kostasFQ/game_BE/issues"
+  },
+  "homepage": "https://github.com/kostasFQ/game_BE#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.4"
+  }
+}
