@@ -10,12 +10,13 @@ app.use(bodyParser.json());
 app.use(cors());
  
 app.post('/save', async (req, res) => {
-  await saveUser(req.body);
-  res.send({status: 200, response: 'OK'});
+  const dbResponse = await saveUser(req.body);
+  res.send(dbResponse);
 })
 
 app.get('/leader-board', async (req, res) => {
-  const allUsers = await getUsers();
+  const { count } = req.query;
+  const allUsers = await getUsers(Number(count));
   res.send(allUsers);
 })
  
