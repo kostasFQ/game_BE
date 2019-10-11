@@ -15,14 +15,10 @@ exports.getUsers = async (count) => {
 exports.saveUser = async (user) => {
   try {
     const { name } = user;
-    if (name.lenght === 0) {
-      return { status: 409, error: 'Sorry, this name already exist.' };
-    }
+    if (name.length === 0) { return { status: 409, error: 'Name is required.' } }
     const isExist = await User.findOne({ name });
 
-    if (isExist) {
-      return { status: 406, error: 'Name is required.' };
-    }
+    if (isExist) { return { status: 406, error: 'Sorry, this name already exist.' } }
 
     const newUser = new User(user);
     await newUser.save();
