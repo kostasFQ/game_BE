@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const sortRequirements = '-average name';
 
 exports.getUsers = async (count) => {
   try {
-    const users = await User.find({}).sort('-average').limit(count);
+    const users = await User.find({}).sort(sortRequirements).limit(count);
     return { status: 200, response: users };
   }
   catch (err) {
@@ -15,6 +16,7 @@ exports.getUsers = async (count) => {
 exports.saveUser = async (user) => {
   try {
     const { name } = user;
+
     if (name.length === 0) { return { status: 409, error: 'Name is required.' } }
     const isExist = await User.findOne({ name });
 
@@ -22,11 +24,13 @@ exports.saveUser = async (user) => {
 
     const newUser = new User(user);
     await newUser.save();
-    return { status: 201, response: 'OK' };
+    const users = await User.find({}).sort(sortRequirements);
+    const userRank = users.findIndex(i => i.name === newUser.name);
+    return { status: 201, response: userRank + 1 };
   } catch (err) {
     console.log(err);
     return { status: 400, error: err.message };
   }
 }
 
-exports.findUser = async (user) => await User.exists(user);
+const findUser = async (user) => await User.exists(user);
