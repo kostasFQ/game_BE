@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const sortRequirements = '-average name';
 
+const sec = [5, 10, 15, 30, 60];
+
 exports.getUsers = async (count) => {
   try {
     const users = await User.find({}).sort(sortRequirements).limit(count);
@@ -15,8 +17,11 @@ exports.getUsers = async (count) => {
 
 exports.saveUser = async (user) => {
   try {
-    const { name } = user;
-
+    const { name, score, average, seconds } = user;
+    
+    if (score < 0 || average < 0 || !sec.includes(seconds) ) {
+      return {status: 400, error: 'Incorrect data.'}
+    }
     if (name.length === 0) { return { status: 409, error: 'Name is required.' } }
     const isExist = await User.findOne({ name });
 
