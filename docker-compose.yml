@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  server:
+    image: node:latest
+    volumes:
+      - .:/server
+    working_dir: /server
+    ports:
+      - 9000:9000
+    command: bash -c "yarn && yarn start"
